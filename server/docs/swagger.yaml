@@ -1,0 +1,239 @@
+basePath: /
+definitions:
+  models.Attendance:
+    properties:
+      date:
+        type: string
+      id:
+        type: integer
+      status:
+        type: string
+      student:
+        $ref: '#/definitions/models.Student'
+      student_id:
+        type: integer
+    type: object
+  models.Student:
+    properties:
+      created_at:
+        type: string
+      department:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
+  views.AttendanceRequest:
+    properties:
+      student_id:
+        type: integer
+    type: object
+  views.CreateStudentRequest:
+    properties:
+      department:
+        type: string
+      email:
+        type: string
+      name:
+        type: string
+    required:
+    - department
+    - email
+    - name
+    type: object
+  views.UpdateStudentRequest:
+    properties:
+      department:
+        type: string
+      email:
+        type: string
+      name:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: API documentation for HRMS System built in Go (Gin)
+  title: HRMS API
+  version: "1.0"
+paths:
+  /attendance/mark:
+    post:
+      consumes:
+      - application/json
+      description: Marks today's attendance for a student. Fails if already marked
+        or student does not exist.
+      parameters:
+      - description: Attendance data
+        in: body
+        name: attendance
+        required: true
+        schema:
+          $ref: '#/definitions/views.AttendanceRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Attendance'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Mark attendance for a student
+      tags:
+      - Attendance
+  /students/:
+    get:
+      description: Returns a list of all students
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Student'
+            type: array
+      summary: Get all students
+      tags:
+      - Students
+    post:
+      consumes:
+      - application/json
+      description: Creates a new student in the database
+      parameters:
+      - description: Student data
+        in: body
+        name: student
+        required: true
+        schema:
+          $ref: '#/definitions/views.CreateStudentRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Student'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "409":
+          description: Conflict
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Create a new student
+      tags:
+      - Students
+  /students/{id}:
+    delete:
+      description: Deletes a student by ID
+      parameters:
+      - description: Student ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Delete a student
+      tags:
+      - Students
+    get:
+      description: Loads a single student using ID
+      parameters:
+      - description: Student ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Student'
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get a student by ID
+      tags:
+      - Students
+    put:
+      consumes:
+      - application/json
+      description: Updates student details by ID
+      parameters:
+      - description: Student ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Updated data
+        in: body
+        name: student
+        required: true
+        schema:
+          $ref: '#/definitions/views.UpdateStudentRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Student'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Update existing student
+      tags:
+      - Students
+swagger: "2.0"

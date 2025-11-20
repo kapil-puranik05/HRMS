@@ -1,0 +1,49 @@
+# Binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+app
+dist/
+build/
+
+# Go build cache
+/pkg/
+/bin/
+
+# Environment files
+.env
+.env.*
+
+
+# Logs
+*.log
+logs/
+log/
+
+# Dependency directories (Go modules usually handle this, but safe)
+vendor/
+
+# IDE / Editor files
+.vscode/
+.idea/
+*.iml
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+*.cache
+
+# Coverage files
+*.cover
+coverage.out
+
+# Module backup files
+go.sum.backup
