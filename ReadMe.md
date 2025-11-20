@@ -36,6 +36,9 @@ This API allows marking and retrieving attendance for students.
 | POST   | `/attendance/mark`              | Mark attendance for the student                  |
 | GET    | `/attendance/:student_id`       | Fetch historical attendance of a student         |
 
+## Swagger documentation Link:
+{BASE_URL}/swagger/index.html#/
+
 ---
 
 ## 3. Cron Job Service
@@ -66,7 +69,7 @@ Follow these steps to run the project locally.
 ## **2. Clone the Repository**
 
 ```bash
-git clone <repository_url>
+git clone https://github.com/kapil-puranik05/HRMS
 ```
 
 ## 3. Setup Environment Variables
