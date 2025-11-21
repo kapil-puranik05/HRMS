@@ -137,4 +137,8 @@ cd cron
 go mod tidy
 go run ./cmd
 ```
+## ER Diagram
 
+Below is the Entity–Relationship Diagram representing the Student–Attendance relationship in the HRMS system:
+
+![ER Diagram](static/erd.png)
